@@ -1,0 +1,31 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form">
+	<Dialog class="Dialog sapUiSizeCompact">
+		<customHeader>
+			<Bar class="Inbound_Bar">
+				<contentMiddle>
+					<Label text="{i18n>SelectPlant}" class="Inbound_Title" design="Bold"></Label>
+				</contentMiddle>
+				<contentRight>
+					<Button icon="sap-icon://decline" press="onClosePlantF4" tooltip="{i18n>Tooltip2}" class="Inbound_NavBtn"></Button>
+				</contentRight>
+			</Bar>
+		</customHeader>
+		<content>
+			<Toolbar class="InboundToolbarbrdr sapUiSmallMarginTop" height="5rem">
+				<ToolbarSpacer></ToolbarSpacer>
+			  <Input
+                    id="idPlantInputF4"
+                    placeholder="{i18n>SelectPlant}"
+                    showValueHelp="true"
+                    valueHelpRequest="onValueHelpPlantF4"
+					valueHelpOnly = "true"
+                    width="50%"
+                    editable="true"/>
+				<ToolbarSpacer></ToolbarSpacer>
+			</Toolbar>
+		</content>
+		<endButton>
+			<Button press="onSelectPlantF4" text="{i18n>OK}"></Button>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>
