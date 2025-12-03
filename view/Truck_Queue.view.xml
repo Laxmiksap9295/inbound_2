@@ -1,0 +1,157 @@
+<mvc:View
+    controllerName="ZGT_MM_INBOUND.controller.Truck_Queue"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:l="sap.ui.layout"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+      <Page title="{i18n>TruckQueueManagement}" enableScrolling="true">
+        <!-- 🔹 Custom Header -->
+        <customHeader>
+            <Bar class="Inbound_Bar1">
+                <contentLeft>
+                    <Button
+                        icon="sap-icon://nav-back"
+                        press="onNavBack"
+                        tooltip="{i18n>Tooltip2}"
+                        class="Inbound_NavBtn" />
+                </contentLeft>
+ 
+                <contentMiddle justifyContent="Center">
+                    <ToolbarSpacer />
+                    <Label text="{i18n>TruckQueueManagement}" class="Inbound_Title" />
+                    <ToolbarSpacer />
+                </contentMiddle>
+ 
+                <contentRight>
+                    <Label id="idRefreshTimer" text="Refreshing in 60s..." class="Inbound_TimerLabel" />
+                </contentRight>
+            </Bar>
+        </customHeader>
+        <!-- 🔹 Page Content -->
+        <content>
+
+            <!-- ====================================================== -->
+            <!-- INBOUND GRID -->
+            <!-- ====================================================== -->
+            <l:Grid
+                defaultSpan="L12 M12 S12"
+                width="100%"
+                class="sapUiNoContentPadding"
+                visible="{= ${TruckModel>/Direction} === 'IN'}">
+
+                <l:content>
+                    <VBox class="customizedTableBox9" fitContainer="true"
+                        visible="{= ${TruckModel>/Flags/View} === 'X'}">
+                        <Text text="Inbound Trucks" class="sectionHeader" />
+
+                        <ScrollContainer width="100%" height="100%" horizontal="true" vertical="true">
+                            <Table id="idInboundTable"
+                                items="{TruckModel>/Inbound}"
+                                inset="false"
+                                mode="SingleSelectMaster"
+                                selectionChange=".onTableSelectionChange"
+                                visibleRowCountMode="Auto"
+                                growing="true"
+                                growingScrollToLoad="true"
+                                fixedLayout="true"
+                                width="100%">
+                                <columns>
+                                    <Column width="8rem"><Label text="Parking Lot" /></Column>
+                                    <Column width="7rem"><Label text="Date" /></Column>
+                                    <Column width="6rem"><Label text="Time" /></Column>
+                                    <Column width="8rem"><Label text="Truck Number" /></Column>
+                                    <Column width="10rem"><Label text="Driver Name" /></Column>
+                                    <Column width="8rem"><Label text="Mobile" /></Column>
+                                    <Column width="10rem"><Label text="Process" /></Column>
+                                    <Column width="10rem"><Label text="WB ID" /></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <Text text="{TruckModel>ParkingYard}" />
+                                            <Text text="{TruckModel>Erdat}" />
+                                            <Text text="{TruckModel>Ertim}" />
+                                            <Text text="{TruckModel>Vehno}" />
+                                            <Text text="{TruckModel>Driver}" />
+                                            <Text text="{TruckModel>DriverNumber}" />
+                                            <Text text="{TruckModel>Process}" />
+                                            <Text text="{TruckModel>WbId}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </ScrollContainer>
+                    </VBox>
+                </l:content>
+            </l:Grid>
+
+            <!-- ====================================================== -->
+            <!-- OUTBOUND GRID -->
+            <!-- ====================================================== -->
+            <l:Grid
+                defaultSpan="L12 M12 S12"
+                width="100%"
+                class="sapUiNoContentPadding"
+                visible="{= ${TruckModel>/Direction} === 'OUT'}">
+
+                <l:content>
+                    <VBox class="customizedTableBox9" fitContainer="true"
+                        visible="{= ${TruckModel>/Flags/View} === 'X'}">
+                        <Text text="Outbound Trucks" class="sectionHeader" />
+
+                        <ScrollContainer width="100%" height="100%" horizontal="true" vertical="true">
+                            <Table id="idOutboundTable"
+                                items="{TruckModel>/Outbound}"
+                                inset="false"
+                                mode="SingleSelectMaster"
+                                selectionChange=".onTableSelectionChange"
+                                visibleRowCountMode="Auto"
+                                growing="true"
+                                growingScrollToLoad="true"
+                                fixedLayout="true"
+                                width="100%">
+                                <columns>
+                                    <Column width="8rem"><Label text="Parking Lot" /></Column>
+                                    <Column width="7rem"><Label text="Date" /></Column>
+                                    <Column width="6rem"><Label text="Time" /></Column>
+                                    <Column width="8rem"><Label text="Truck Number" /></Column>
+                                    <Column width="10rem"><Label text="Driver Name" /></Column>
+                                    <Column width="8rem"><Label text="Mobile" /></Column>
+                                    <Column width="10rem"><Label text="Process" /></Column>
+                                    <Column width="10rem"><Label text="WB ID" /></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <Text text="{TruckModel>ParkingYard}" />
+                                            <Text text="{TruckModel>Erdat}" />
+                                            <Text text="{TruckModel>Ertim}" />
+                                            <Text text="{TruckModel>Vehno}" />
+                                            <Text text="{TruckModel>Driver}" />
+                                            <Text text="{TruckModel>DriverNumber}" />
+                                            <Text text="{TruckModel>Process}" />
+                                            <Text text="{TruckModel>WbId}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </ScrollContainer>
+                    </VBox>
+                </l:content>
+            </l:Grid>
+        </content>
+
+        <!-- 🔹 Footer -->
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer />
+                <Button
+                    text="Prioritize"
+                    type="Emphasized"
+                    press=".onPrioritize"
+                    visible="{= ${TruckModel>/Flags/Edit} === 'X'}" />
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>

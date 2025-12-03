@@ -1,0 +1,203 @@
+<mvc:View controllerName="ZGT_MM_INBOUND.controller.Operational_Tat"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core" class="sapUiSizeCompact">
+    
+    <Page showHeader="true" title="{i18n>OperationalPageTitle}">
+        <!-- Header -->
+        <customHeader>
+            <Bar class="Inbound_Bar1">
+                <contentLeft>
+                    <Button icon="sap-icon://nav-back" press="onNavBack" tooltip="{i18n>Tooltip2}" class="Inbound_NavBtn" />
+                      <Label id="idTotalTruck" text="{= ${i18n>TotalTruck} + ' (' + ${OperationalTATModel>/TotalTruck} + ')' }"  class="Inbound_Title" />
+                </contentLeft>
+                <contentMiddle justifyContent="Center">
+                    <ToolbarSpacer />
+                    <Label text="{i18n>OperationalPageTitle}" class="Inbound_Title" />
+                    <ToolbarSpacer />
+                </contentMiddle>
+                <contentRight>
+                    <Label id="idTruckToday" text="{= ${i18n>TruckToday} + ' (' + ${OperationalTATModel>/TruckToday} + ')' }" class="Inbound_Title"  />
+                    <!-- <Label id="idTotalTruck" text="{= ${i18n>TotalTruck} + ' (' + ${OperationalTATModel>/TotalTruck} + ')' }"  class="Inbound_Title" /> -->
+                    <Button icon="sap-icon://filter" press="_openPlantFragment" class="InboundBtnIcon"></Button>
+                </contentRight>
+            </Bar>
+        </customHeader>
+
+        <!-- Content -->
+        <content>
+            <!-- <ScrollContainer height="100%" width="100%" vertical="true" horizontal="false"> -->
+                <l:Grid defaultSpan="L6 M6 S12" hSpacing="1" vSpacing="1" width="100%" position="Center" class="sapUiNoContentPadding">
+                    
+                    <l:content>
+                        <!-- 1️⃣ Truck Awaiting Truck In -->
+                        <VBox class="customizedTableBox9" visible="{TableVisibility>/TruckInVisible}">
+                            <Text text="{= ${i18n>TruckAwaitingIN} + ' (' + ${OperationalTATModel>/GateEntryCount} + ')' }" class="customizedTableTitle9" />
+                            <!-- <ScrollContainer height="530px" width="100%" vertical="false" horizontal="false"> -->
+                                <Table id="idTruckInTable" width="600px"  fixedLayout="false" class="customizedTable9" items="{OperationalTATModel>/GateEntry}">
+                                    <columns>
+                                        <Column width="100px"><Text text="{i18n>TruckNumber}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>WaitingTime}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>DriverMobile}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>WBID}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>Process}" /></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{OperationalTATModel>Vehno}" />
+                                                <Text text="{= ${OperationalTATModel>Days} + 'd ' + ${OperationalTATModel>Hours} + 'h ' + ${OperationalTATModel>Minutes} + 'm'}" />
+                                                <Text text="{OperationalTATModel>DriverNumber}" />
+                                                <Text text="{OperationalTATModel>WbId}" />
+                                                <Text text="{OperationalTATModel>Process}" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            <!-- </ScrollContainer> -->
+                        </VBox>
+
+                        <!-- 2️⃣ Truck Awaiting Sampling -->
+                        <VBox class="customizedTableBox9" visible="{TableVisibility>/PreQualVisible}">
+                            <Text text="{= ${i18n>TruckAwaitingSampling} + ' (' + ${OperationalTATModel>/PreQualityCount} + ')' }" class="customizedTableTitle9" />
+                            <!-- <ScrollContainer height="530px" width="100%" vertical="false" horizontal="false"> -->
+                                <Table id="idPreQualTable" width="600px" fixedLayout="false" class="customizedTable9" items="{OperationalTATModel>/PreQuality}">
+                                    <columns>
+                                        <Column width="100px"><Text text="{i18n>TruckNumber}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>WaitingTime}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>DriverMobile}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>WBID}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>Process}" /></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{OperationalTATModel>Vehno}" />
+                                                <Text text="{= ${OperationalTATModel>Days} + 'd ' + ${OperationalTATModel>Hours} + 'h ' + ${OperationalTATModel>Minutes} + 'm'}" />
+                                                <Text text="{OperationalTATModel>DriverNumber}" />
+                                                <Text text="{OperationalTATModel>WbId}" />
+                                                <Text text="{OperationalTATModel>Process}" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            <!-- </ScrollContainer> -->
+                        </VBox>
+
+                        <!-- 3️⃣ Truck Awaiting Unloading -->
+                        <VBox class="customizedTableBox9" visible="{TableVisibility>/UnloadingVisible}">
+                            <Text text="{= ${i18n>TruckAwaitingUnloading} + ' (' + ${OperationalTATModel>/UnloadingCount} + ')' }" class="customizedTableTitle9" />
+                            <ScrollContainer height="530px" width="100%" vertical="false" horizontal="false">
+                                <Table id="idUnloadingTable" width="600px" fixedLayout="false" class="customizedTable9" items="{OperationalTATModel>/Unloading}">
+                                    <columns>
+                                        <Column width="100px"><Text text="{i18n>TruckNumber}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>WaitingTime}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>DriverMobile}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>WBID}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>Process}" /></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{OperationalTATModel>Vehno}" />
+                                                <Text text="{= ${OperationalTATModel>Days} + 'd ' + ${OperationalTATModel>Hours} + 'h ' + ${OperationalTATModel>Minutes} + 'm'}" />
+                                                <Text text="{OperationalTATModel>DriverNumber}" />
+                                                <Text text="{OperationalTATModel>WbId}" />
+                                                <Text text="{OperationalTATModel>Process}" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            </ScrollContainer>
+                        </VBox>
+                  
+
+                        <!-- 4️⃣ Truck Awaiting PreQuality Exception -->
+                        <VBox class="customizedTableBox9" visible="{TableVisibility>/PreQualExpVisible}">
+                            <Text text="{= ${i18n>TruckAwaitingPreQualityExcep} + ' (' + ${OperationalTATModel>/PreQualityExcepCount} + ')' }" class="customizedTableTitle9" />
+                            <!-- <ScrollContainer height="530px" width="100%" vertical="false" horizontal="false"> -->
+                                <Table id="idPreQualExpTable" width="600px" fixedLayout="false" class="customizedTable9" items="{OperationalTATModel>/PreQualityExcep}">
+                                    <columns>
+                                        <Column width="100px"><Text text="{i18n>TruckNumber}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>WaitingTime}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>DriverMobile}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>WBID}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>Process}" /></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{OperationalTATModel>Vehno}" />
+                                                <Text text="{= ${OperationalTATModel>Days} + 'd ' + ${OperationalTATModel>Hours} + 'h ' + ${OperationalTATModel>Minutes} + 'm'}" />
+                                                <Text text="{OperationalTATModel>DriverNumber}" />
+                                                <Text text="{OperationalTATModel>WbId}" />
+                                                <Text text="{OperationalTATModel>Process}" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            <!-- </ScrollContainer> -->
+                        </VBox>
+                        <!-- 5️⃣ Truck Awaiting Loading -->
+                        <VBox class="customizedTableBox9" visible="{TableVisibility>/LoadingVisible}">
+                            <Text text="{= ${i18n>TruckAwaitingLoading} + ' (' + ${OperationalTATModel>/LoadingCount} + ')' }" class="customizedTableTitle9" />
+                            <!-- <ScrollContainer height="530px" width="100%" vertical="false" horizontal="false"> -->
+                                <Table id="idLoadingTable" width="600px" fixedLayout="false" class="customizedTable9" items="{OperationalTATModel>/Loading}">
+                                    <columns>
+                                        <Column width="100px"><Text text="{i18n>TruckNumber}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>WaitingTime}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>DriverMobile}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>WBID}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>Process}" /></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{OperationalTATModel>Vehno}" />
+                                                <Text text="{= ${OperationalTATModel>Days} + 'd ' + ${OperationalTATModel>Hours} + 'h ' + ${OperationalTATModel>Minutes} + 'm'}" />
+                                                <Text text="{OperationalTATModel>DriverNumber}" />
+                                                <Text text="{OperationalTATModel>WbId}" />
+                                                <Text text="{OperationalTATModel>Process}" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            <!-- </ScrollContainer> -->
+                        </VBox>
+
+                    
+
+                        <!-- 6️⃣ Truck Awaiting Truck Out -->
+                        <VBox class="customizedTableBox9" visible="{TableVisibility>/TruckOutVisible}">
+                            <Text text="{= ${i18n>TruckAwaitingOut} + ' (' + ${OperationalTATModel>/TruckOutCount} + ')' }" class="customizedTableTitle9" />
+                            <!-- <ScrollContainer height="530px" width="100%" vertical="false" horizontal="false"> -->
+                                <Table id="idTruckOutTable" width="600px" fixedLayout="false" class="customizedTable9" items="{OperationalTATModel>/TruckOut}">
+                                    <columns>
+                                        <Column width="100px"><Text text="{i18n>TruckNumber}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>WaitingTime}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>DriverMobile}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>WBID}" /></Column>
+                                        <Column width="100px"><Text text="{i18n>Process}" /></Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                            <cells>
+                                                <Text text="{OperationalTATModel>Vehno}" />
+                                                <Text text="{= ${OperationalTATModel>Days} + 'd ' + ${OperationalTATModel>Hours} + 'h ' + ${OperationalTATModel>Minutes} + 'm'}" />
+                                                <Text text="{OperationalTATModel>DriverNumber}" />
+                                                <Text text="{OperationalTATModel>WbId}" />
+                                                <Text text="{OperationalTATModel>Process}" />
+                                            </cells>
+                                        </ColumnListItem>
+                                    </items>
+                                </Table>
+                            <!-- </ScrollContainer> -->
+                        </VBox>
+
+                    </l:content>
+                </l:Grid>
+            <!-- </ScrollContainer> -->
+        </content>
+    </Page>
+</mvc:View>
